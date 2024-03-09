@@ -1,0 +1,15 @@
+percent="100%"
+progressive=False
+chunk="None"
+question="
+
+    cool we want make a webservice that we can upload files to and store it in digital ocean files
+   
+"
+
+file_list="
+
+    /Users/mustafah/Projects/dreamscriptnodejs/app.js
+    /Users/mustafah/Projects/dreamscriptnodejs/routes/users.js
+
+"

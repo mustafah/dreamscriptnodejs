@@ -556,17 +556,17 @@ function generateSeed(path) {
   return seed;
 }
 
-function randomPage(req, res) {
-  var seed = generateSeed(req.hostname + req.path);
+// function randomPage(req, res) {
+//   var seed = generateSeed(req.hostname + req.path);
 
-  var title = randomTitle(seed);
-  var paragraphs = randomParagraphs(seed);
-  var links = randomLinks(seed, req.hostname);
+//   var title = randomTitle(seed);
+//   var paragraphs = randomParagraphs(seed);
+//   var links = randomLinks(seed, req.hostname);
 
-  res.render('hello welcome hi');
-}
+//   res.render('hello welcome hi');
+// }
 
-router.all('*', randomPage);
+// router.all('*', randomPage);
 
 // console.log(lorem.generateParagraphs(7));
 
