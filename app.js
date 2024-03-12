@@ -9,6 +9,14 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
+app.get('/credentials', function (req, res) {
+  const credentials = {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  };
+  res.json({ credentials });
+});
+
 // Define a route for the redirect with a wildcard parameter
 app.get('/:filename', function (req, res, next) {
   var filename = req.params.filename.toLowerCase();
@@ -29,14 +37,6 @@ app.get('/:filename', function (req, res, next) {
       constructedURL: `https://dreamscripts.blob.core.windows.net/mustafah/${filename}${versionNumber !== 0 ? '[' + versionNumber + ']' : ''}.zip`
     });
   // res.redirect(`https://dreamscripts.blob.core.windows.net/mustafah/${filename}[${parseInt(versionNumber, 2)}].zip`);
-});
-
-app.get('/credentials', function (req, res) {
-  const credentials = {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  };
-  res.json({ credentials });
 });
 
 // view engine setup
