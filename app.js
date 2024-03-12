@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var app = express();
 
 // Define a route for the redirect with a wildcard parameter
-app.get('/:filename', function(req, res, next) {
+app.get('/:filename', function (req, res, next) {
   var filename = req.params.filename.toLowerCase();
   var lastXIndex = filename.lastIndexOf('x');
   var versionNumber = 0;
@@ -22,9 +22,21 @@ app.get('/:filename', function(req, res, next) {
     if (!versionNumber) return res.status(400).send('Invalid dream file URL');
   }
   if (versionNumber)
-  // Redirect to the desired URL
-  res.json({ binaryString, versionNumber, constructedURL: `https://dreamscripts.blob.core.windows.net/mustafah/${filename}${versionNumber !== 0 ? '[' + versionNumber + ']' : ''}.zip`});
+    // Redirect to the desired URL
+    res.json({
+      binaryString,
+      versionNumber,
+      constructedURL: `https://dreamscripts.blob.core.windows.net/mustafah/${filename}${versionNumber !== 0 ? '[' + versionNumber + ']' : ''}.zip`
+    });
   // res.redirect(`https://dreamscripts.blob.core.windows.net/mustafah/${filename}[${parseInt(versionNumber, 2)}].zip`);
+});
+
+app.get('/credentials', function (req, res) {
+  const credentials = {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  };
+  res.json({ credentials });
 });
 
 // view engine setup
@@ -33,7 +45,9 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,12 +55,12 @@ app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
