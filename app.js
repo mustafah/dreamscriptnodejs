@@ -19,7 +19,7 @@ app.get('/credentials', function (req, res) {
 
 // Define a route for the redirect with a wildcard parameter
 app.get('/:filename', function (req, res, next) {
-  var filename = req.params.filename.toLowerCase();
+  var filename = req.params.filename;
   res.redirect(`https://dreamscriptstorage.sfo2.cdn.digitaloceanspaces.com/${filename}.zip`);
   // var lastXIndex = filename.lastIndexOf('x');
   // var versionNumber = 0;
