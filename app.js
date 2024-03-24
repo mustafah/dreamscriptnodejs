@@ -20,22 +20,23 @@ app.get('/credentials', function (req, res) {
 // Define a route for the redirect with a wildcard parameter
 app.get('/:filename', function (req, res, next) {
   var filename = req.params.filename.toLowerCase();
-  var lastXIndex = filename.lastIndexOf('x');
-  var versionNumber = 0;
-  if (lastXIndex !== -1) {
-    var binaryString = filename.substring(lastXIndex + 1); // Extract the binary string from the URL
-    versionNumber = binaryString.replace(/i/g, '1').replace(/o/g, '0'); // Convert 'I' to '1' and 'O' to '0'
-    versionNumber = parseInt(versionNumber, 2);
-    filename = filename.substring(0, lastXIndex - 1);
-    if (!versionNumber) return res.status(400).send('Invalid dream file URL');
-  }
-  if (versionNumber)
-    // Redirect to the desired URL
-    res.json({
-      binaryString,
-      versionNumber,
-      constructedURL: `https://dreamscripts.blob.core.windows.net/mustafah/${filename}${versionNumber !== 0 ? '[' + versionNumber + ']' : ''}.zip`
-    });
+  res.redirect(`https://dreamscriptstorage.sfo2.cdn.digitaloceanspaces.com/${filename}.zip`);
+  // var lastXIndex = filename.lastIndexOf('x');
+  // var versionNumber = 0;
+  // if (lastXIndex !== -1) {
+  //   var binaryString = filename.substring(lastXIndex + 1); // Extract the binary string from the URL
+  //   versionNumber = binaryString.replace(/i/g, '1').replace(/o/g, '0'); // Convert 'I' to '1' and 'O' to '0'
+  //   versionNumber = parseInt(versionNumber, 2);
+  //   filename = filename.substring(0, lastXIndex - 1);
+  //   if (!versionNumber) return res.status(400).send('Invalid dream file URL');
+  // }
+  // if (versionNumber)
+  //   // Redirect to the desired URL
+  //   res.json({
+  //     binaryString,
+  //     versionNumber,
+  //     constructedURL: `https://dreamscripts.blob.core.windows.net/mustafah/${filename}${versionNumber !== 0 ? '[' + versionNumber + ']' : ''}.zip`
+  //   });
   // res.redirect(`https://dreamscripts.blob.core.windows.net/mustafah/${filename}[${parseInt(versionNumber, 2)}].zip`);
 });
 
