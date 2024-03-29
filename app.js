@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
+
 app.get('/credentials', function (req, res) {
   const credentials = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -20,6 +21,9 @@ app.get('/credentials', function (req, res) {
 // Define a route for the redirect with a wildcard parameter
 app.get('/:filename', function (req, res, next) {
   var filename = req.params.filename;
+  if (filename === 'dflat.glb' || filename === 'index.html' || filename === 'manifest.json' || filename === 'asset-manifest.json' || filename === 'favicon.ico') {
+    return next();
+  }
   res.redirect(`https://dreamscriptstorage.sfo2.cdn.digitaloceanspaces.com/${filename}.zip`);
   // var lastXIndex = filename.lastIndexOf('x');
   // var versionNumber = 0;
@@ -51,6 +55,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dreamtime')));
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);

@@ -3,13 +3,14 @@ progressive=False
 chunk="None"
 question="
 
-    cool we want make a webservice that we can upload files to and store it in digital ocean files
+    we want the static path to be inside http://localhost:3000/dreamtime not on the root directory
+    app.use(express.static(path.join(__dirname, 'dreamtime')));
    
 "
 
 file_list="
 
     /Users/mustafah/Projects/dreamscriptnodejs/app.js
-    /Users/mustafah/Projects/dreamscriptnodejs/routes/users.js
+    # /Users/mustafah/Projects/dreamscriptnodejs/routes/users.js
 
 "
