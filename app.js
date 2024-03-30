@@ -6,9 +6,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
+var radiosRouter = require('./routes/radios');
 
 var app = express();
 
+app.use('/radios', radiosRouter);
 
 app.get('/credentials', function (req, res) {
   const credentials = {
