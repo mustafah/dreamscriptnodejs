@@ -44,6 +44,18 @@ app.get('/:filename', function (req, res, next) {
   // res.redirect(`https://dreamscripts.blob.core.windows.net/mustafah/${filename}[${parseInt(versionNumber, 2)}].zip`);
 });
 
+app.get('/:audio_source_id/:index', function (req, res) {
+  const audioSourceId = req.params.audio_source_id;
+  const index = parseInt(req.params.index, 10) || 1;
+
+  if (audioSourceId.toLowerCase() === "Quran[MahmoudKhalilALHosry]".toLowerCase()) {
+    const url = `https://server13.mp3quran.net/husr/${String(index).padStart(3, '0')}.mp3`;
+    return res.redirect(url);
+  }
+  return res.status(400).send(`Invalid audio source id or index: ${audioSourceId}[${index}]`);
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
